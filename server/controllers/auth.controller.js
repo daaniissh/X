@@ -15,12 +15,12 @@ export const signup = async (req, res) => {
   if (existingEmail) {
     return res.status(400).json({ error: "Email is already taken" });
   }
-  if (password.length < 6) {
+  if (password?.length < 6) {
     res
       .status(401)
       .json({ error: "Password must be at least 6 characters long" });
   }
-  const salt = bcrypt.genSalt(10);
+  const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
   const newUser = new User({
     fullName,
@@ -32,29 +32,17 @@ export const signup = async (req, res) => {
   if (newUser) {
     generateTokenAndSetCookies(newUser._id, res);
     await newUser.save();
-    const {
-      _id,
-      username,
-      fullName,
-      email,
-      profileIMg,
-      coverImg,
-      bio,
-      link,
-      followers,
-      following,
-    } = newUser;
     res.status(200).json({
-      _id,
-      username,
-      fullName,
-      email,
-      profileIMg,
-      coverImg,
-      bio,
-      link,
-      followers,
-      following,
+      _id:newUser._id,
+      username:newUser.username,
+      fullName:newUser.fullName,
+      email:newUser.email,
+      profileImg:newUser.profileImg,
+      coverImg:newUser.coverImg,
+      bio:newUser.bio,
+      link:newUser.link,
+      followers:newUser.followers,
+      following:newUser.following,
     });
   } else {
     console.log("Internal server error at signup : line 54");
