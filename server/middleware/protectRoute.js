@@ -7,7 +7,7 @@ export const protectRoute = async (req, res, next) => {
       return res.status(400).json({ error: "token not found" });
     }
 
-    const decode = jwt.verify(token, proc.env.SECRET_JWT);
+    const decode = jwt.verify(token, process.env.SECRET_JWT);
     if (!decode) res.status(400).json({ error: "Invalid token" });
     const user = await User.findById(decode.userId).select("-password")
     if(!user){
