@@ -2,6 +2,7 @@ import express from "express";
 import authRoutes from "./routes/auth.route.js";
 import userRoutes from "./routes/user.route.js";
 import postRoutes from "./routes/post.route.js";
+import NotificationRoutes from "./routes/notification.routes.js";
 import dotenv from "dotenv";
 import { v2 as cloudinary } from "cloudinary";
 import connectMongo from "./db/connect.js";
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
+app.use("/api/notification", NotificationRoutes );
 app.all("*", (req,res)=>{
   res.json("404 not found")
 });
