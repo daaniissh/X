@@ -33,16 +33,16 @@ export const signup = async (req, res) => {
     generateTokenAndSetCookies(newUser._id, res);
     await newUser.save();
     res.status(200).json({
-      _id:newUser._id,
-      username:newUser.username,
-      fullName:newUser.fullName,
-      email:newUser.email,
-      profileImg:newUser.profileImg,
-      coverImg:newUser.coverImg,
-      bio:newUser.bio,
-      link:newUser.link,
-      followers:newUser.followers,
-      following:newUser.following,
+      _id: newUser._id,
+      username: newUser.username,
+      fullName: newUser.fullName,
+      email: newUser.email,
+      profileImg: newUser.profileImg,
+      coverImg: newUser.coverImg,
+      bio: newUser.bio,
+      link: newUser.link,
+      followers: newUser.followers,
+      following: newUser.following,
     });
   } else {
     console.log("Internal server error at signup : line 54");
@@ -53,7 +53,6 @@ export const signup = async (req, res) => {
 };
 
 export const login = async (req, res) => {
- 
   try {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
@@ -96,7 +95,12 @@ export const login = async (req, res) => {
 export const logout = async (req, res) => {
   try {
     res
-      .clearCookie("jwt", "", { maxAge: 0 })
+      .clearCookie("jwt", {
+        httpOnly: true,
+        sameSite: "strict",
+        secure: process.env.NODE_ENV === "production",
+        path: "/", // Ensure the path matches the one used when setting the cookie
+      })
       .status(200)
       .json({ message: "Logged out successfully" });
   } catch (error) {
@@ -106,11 +110,13 @@ export const logout = async (req, res) => {
       .json({ error: "Internal server error at Logout : line 111" });
   }
 };
+
 export const getMe = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).select("-password");
-    res.json(user);
+    res.status(200).json(user);
   } catch (error) {
-    res.json(error)
+    console.log("Error in getMe controller", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };

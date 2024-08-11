@@ -4,6 +4,7 @@ import userRoutes from "./routes/user.route.js";
 import postRoutes from "./routes/post.route.js";
 import NotificationRoutes from "./routes/notification.routes.js";
 import dotenv from "dotenv";
+import cors  from "cors"
 import { v2 as cloudinary } from "cloudinary";
 import connectMongo from "./db/connect.js";
 import cookieParser from "cookie-parser";
@@ -11,6 +12,10 @@ import cookieParser from "cookie-parser";
 const app = express();
 
 dotenv.config();
+app.use(cors({
+  origin: 'http://localhost:3000', // replace with your frontend domain
+  credentials: true,
+}));
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -25,7 +30,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/notification", NotificationRoutes );
 app.all("*", (req,res)=>{
-  res.json("404 not found")
+  res.json("404 not found,page not found")
 });
 
 app.listen(process.env.PORT, () => {
