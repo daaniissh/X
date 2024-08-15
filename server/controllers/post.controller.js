@@ -4,9 +4,10 @@ import User from "../models/user.model.js";
 import { v2 as cloudinary } from "cloudinary";
 
 export const createPost = async (req, res) => {
-  console.log("why man");
+
   try {
     const { text } = req.body;
+    console.log(text,"text from post controller")
     let { img } = req.body;
     const userId = req.user._id.toString();
     const user = await User.findById(userId);
