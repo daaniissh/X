@@ -16,7 +16,7 @@ export const getProfile = async (req, res) => {
   }
 };
 
-export const followOrUnfollow = async () => {
+export const followOrUnfollow = async (req,res) => {
   try {
     const { id } = req.params;
     const userToModify = await User.findById(id);
