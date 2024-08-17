@@ -9,7 +9,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
 import LoadingSpinner from "./LoadingSpinner";
-// import { formatPostDate } from "../../utils/date";
+import { formatPostDate } from "../../utils/function.js";
 
 const Post = ({ post }) => {
 	const [comment, setComment] = useState("");
@@ -20,7 +20,7 @@ const Post = ({ post }) => {
 
 	const isMyPost = authUser._id === post.user._id;
 
-	const formattedDate = "1d";
+	const formattedDate = formatPostDate(post.createdAt)
 
 	const { mutate: deletePost, isPending: isDeleting } = useMutation({
 		mutationFn: async () => {
@@ -79,38 +79,46 @@ const Post = ({ post }) => {
 		},
 	});
 
-	const { mutate: commentPost, isPending: isCommenting } = useMutation({
-		mutationFn: async () => {
-			try {
-				const res = await fetch(`http://localhost:8000/api/posts/comment/${post._id}`, {
-					method: "POST",
-					credentials:"include",
-					headers: {
-						"Content-Type": "application/json",
-						
-					},
-					body: JSON.stringify({ text: comment }),
-				});
-				const data = await res.json();
+	const { mutate: commentPost, data: cmData, isPending: isCommenting } = useMutation({
+    mutationFn: async () => {
+        try {
+            const res = await fetch(`http://localhost:8000/api/posts/comment/${post._id}`, {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ text: comment }),
+            });
+            const data = await res.json();
 
-				if (!res.ok) {
-					throw new Error(data.error || "Something went wrong");
-				}
-				return data;
-			} catch (error) {
-				throw new Error(error);
-			}
-		},
-		onSuccess: () => {
+            if (!res.ok) {
+                throw new Error(data.error || "Something went wrong");
+            }
+            return data;
+        } catch (error) {
+            throw new Error(error);
+        }
+    },
+		onSuccess: (data) => {
 			toast.success("Comment posted successfully");
 			setComment("");
-			queryClient.invalidateQueries({ queryKey: ["posts"] });
-		},
-		onError: (error) => {
-			toast.error(error.message);
-		},
-	});
+			queryClient.setQueryData(["posts"], (oldData) => {
+				return oldData.map((p) => {
+					if (p._id === post._id) {
+						return { ...p, comments: data.comments };
+					}
+					return p;
+				});
+			});
+	},
+	
+    onError: (error) => {
+        toast.error(error.message);
+    },
+});
 
+// console.log(cmData)
 	const handleDeletePost = () => {
 		deletePost();
 	};
@@ -196,7 +204,7 @@ const Post = ({ post }) => {
 												</div>
 												<div className='flex flex-col'>
 													<div className='flex items-center gap-1'>
-														<span className='font-bold'>{comment.user.fullName}</span>
+														<span className='font-bold'>{comment.user?.fullName}</span>
 														<span className='text-gray-700 text-sm'>
 															@{comment.user.username}
 														</span>
