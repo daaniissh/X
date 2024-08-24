@@ -61,20 +61,25 @@ export const commentOnPost = async (req, res) => {
     if (!text) {
       return res.status(400).json({ error: "Text field is required" });
     }
-    
+
     // Find the post and populate existing comments
-    const post = await Post.findById(postId).populate('comments.user');
-    
+    const post = await Post.findById(postId).populate("comments.user");
+
     // Add the new comment
     const comment = { user: userId, text };
     post.comments.push(comment);
-    
+
     // Save the post with the new comment
     await post.save();
-    
+
     // Repopulate the new comment's user details
-    const updatedPost = await Post.findById(postId).populate('comments.user');
-    
+    const updatedPost = await Post.findById(postId).populate("comments.user");
+    const notification = new Notification({
+      from: userId,
+      to: post.user._id,
+      type: "comment",
+    });
+    await notification.save();
     // Return the updated post with populated comments
     return res.status(200).json(updatedPost);
   } catch (error) {

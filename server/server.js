@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
-app.use("/api/notification", NotificationRoutes );
+app.use("/api/notifications", NotificationRoutes );
 app.all("*", (req,res)=>{
   res.json("404 not found,page not found")
 });
