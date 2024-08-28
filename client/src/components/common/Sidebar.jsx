@@ -59,7 +59,7 @@ const {data:authUser} = useQuery({queryKey:["authUser"]})
 						>
 							<IoNotifications className='w-6 h-6' />
 							<span className='text-lg hidden md:block'>Notifications</span>
-							<div className="font-bold text-red-500">{notifications?.length}</div>
+							{/* <div className="font-bold text-red-500">{notifications?.length}</div> */}
 						</Link>
 					</li>
 
