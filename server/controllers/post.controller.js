@@ -201,9 +201,10 @@ export const getUserPosts = async (req, res) => {
         select: "-password",
       })
       .populate({
-        path: "commenst.user",
-        select: "-pwassword",
+        path: "comments.user",
+        select: "-password",
       });
+    return res.json(posts);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal server error" });

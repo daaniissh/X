@@ -27,6 +27,7 @@ const Post = ({ post }) => {
 			try {
 				const res = await fetch(`http://localhost:8000/api/posts/${post._id}`, {
 					method: "DELETE",
+					credentials:"include"
 				});
 				const data = await res.json();
 

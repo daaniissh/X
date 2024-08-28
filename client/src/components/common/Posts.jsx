@@ -4,19 +4,23 @@ import { POSTS } from "../../utils/db/dummy";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 
-const Posts = ({ feedType }) => {
+const Posts = ({ feedType ,username,userId}) => {
 
-	const getPostsEndpoint = () => {
+	const getPostEndpoint = () => {
 		switch (feedType) {
 			case "forYou":
-				return "http://localhost:8000/api/posts/all"
+				return "http://localhost:8000/api/posts/all";
 			case "following":
-				return "http://localhost:8000/api/posts/following"
+				return "http://localhost:8000/api/posts/following";
+			case "posts":
+				return `http://localhost:8000/api/posts/user/${username}`;
+			case "likes":
+				return `http://localhost:8000/api/posts/likes/${userId}`;
 			default:
-				return "http://localhost:8000/api/posts/all"
+				return "http://localhost:8000/api/posts/all";
 		}
-	}
-	const POST_ENDPOINT = getPostsEndpoint()
+	};
+	const POST_ENDPOINT = getPostEndpoint()
 	const {data:posts,isLoading,refetch,isRefetching} = useQuery({
 		queryKey: ["posts"],
 		queryFn: async () => {
@@ -36,7 +40,7 @@ const Posts = ({ feedType }) => {
 	})
 	useEffect(() => {
 		refetch()
-	}, [feedType,refetch])
+	}, [feedType,refetch,username])
 	
 	return (
 		<>

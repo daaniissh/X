@@ -12,6 +12,7 @@ import cookieParser from "cookie-parser";
 const app = express();
 
 dotenv.config();
+app.use(express.json({ limit: "5mb" })); 
 app.use(cors({
   origin: 'http://localhost:3000', // replace with your frontend domain
   credentials: true,
