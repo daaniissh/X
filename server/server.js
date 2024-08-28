@@ -25,7 +25,11 @@ cloudinary.config({
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
-
+app.get("/", async (req, res) => {
+  res.status(200).json({
+    message: "hello",
+  });
+});
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
