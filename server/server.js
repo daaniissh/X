@@ -34,7 +34,7 @@ app.all("*", (req,res)=>{
   res.json("404 not found,page not found")
 });
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 8000, () => {
   console.log("Server is running port http://localhost:8000");
   connectMongo();
 });
