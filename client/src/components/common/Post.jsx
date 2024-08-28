@@ -223,6 +223,7 @@ const Post = ({ post }) => {
 										<input
 											className='textarea w-full p-3 rounded text-md resize-none border focus:outline-none  border-gray-800'
 											placeholder='Add a comment...'
+											required
 											value={comment}
 											onChange={(e) => setComment(e.target.value)}
 										/>

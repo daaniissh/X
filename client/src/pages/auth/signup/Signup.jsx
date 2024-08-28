@@ -71,6 +71,7 @@ const SignUpPage = () => {
 						<input
 							type='email'
 							className='grow'
+							required
 							placeholder='Email'
 							name='email'
 							onChange={handleInputChange}
@@ -84,6 +85,7 @@ const SignUpPage = () => {
 								type='text'
 								className='grow '
 								placeholder='Username'
+								required
 								name='username'
 								onChange={handleInputChange}
 								value={formData.username}
@@ -96,6 +98,7 @@ const SignUpPage = () => {
 								className='grow'
 								placeholder='Full Name'
 								name='fullName'
+								required
 								onChange={handleInputChange}
 								value={formData.fullName}
 							/>
@@ -107,6 +110,7 @@ const SignUpPage = () => {
 							type='password'
 							className='grow'
 							placeholder='Password'
+							required
 							name='password'
 							onChange={handleInputChange}
 							value={formData.password}

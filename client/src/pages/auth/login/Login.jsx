@@ -65,6 +65,7 @@ const LoginPage = () => {
 							type='text'
 							className='grow'
 							placeholder='username'
+							required
 							name='username'
 							onChange={handleInputChange}
 							value={formData.username}
@@ -77,6 +78,7 @@ const LoginPage = () => {
 							type='password'
 							className='grow'
 							placeholder='Password'
+							required
 							name='password'
 							onChange={handleInputChange}
 							value={formData.password}
