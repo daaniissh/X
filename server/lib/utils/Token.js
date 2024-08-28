@@ -9,7 +9,7 @@ export const generateTokenAndSetCookies = (userId, res) => {
     maxAge: 15 * 24 * 60 * 60 * 1000, // MS
     httpOnly: true, // prevent XSS attacks
     sameSite: 'strict', // prevent CSRF attacks
-    secure: process.env.NODE_ENV !== 'development', // only set secure flag in production
+    secure: true, // only set secure flag in production
     // path: '/', // ensure the path is set correctly
   });
 

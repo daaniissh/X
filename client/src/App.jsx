@@ -20,7 +20,7 @@ function App() {
       try {
         const res = await fetch("https://x-nu-murex.vercel.app/api/auth/me", {
           method: "GET",
-          credentials: "include", // This ensures cookies are sent with the request
+          credentials: "include", 
         });
         const data = await res.json()
         if (data.error) return null
