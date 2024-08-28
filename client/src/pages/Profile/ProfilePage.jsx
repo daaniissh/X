@@ -38,7 +38,7 @@ const ProfilePage = () => {
 		queryKey: ["userProfile"],
 		queryFn: async () => {
 			try {
-				const res = await fetch(`http://localhost:8000/api/users/profile/${username}`, {
+				const res = await fetch(`https://x-nu-murex.vercel.app/api/users/profile/${username}`, {
 					credentials: "include"
 				});
 				const data = await res.json();

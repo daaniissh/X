@@ -13,7 +13,7 @@ const NotificationPage = () => {
 		queryKey: ["notifications"],
 		queryFn: async () => {
 			try {
-				const res = await fetch("http://localhost:8000/api/notifications", {
+				const res = await fetch("https://x-nu-murex.vercel.app/api/notifications", {
 					credentials: "include"
 				});
 				const data = await res.json();
@@ -28,7 +28,7 @@ const NotificationPage = () => {
 	const { mutate: deleteNotifications } = useMutation({
 		mutationFn: async () => {
 			try {
-				const res = await fetch("http://localhost:8000/api/notifications", {
+				const res = await fetch("https://x-nu-murex.vercel.app/api/notifications", {
 					method: "DELETE",
 					credentials: "include"
 				});

@@ -25,7 +25,7 @@ const Post = ({ post }) => {
 	const { mutate: deletePost, isPending: isDeleting } = useMutation({
 		mutationFn: async () => {
 			try {
-				const res = await fetch(`http://localhost:8000/api/posts/${post._id}`, {
+				const res = await fetch(`https://x-nu-murex.vercel.app/api/posts/${post._id}`, {
 					method: "DELETE",
 					credentials:"include"
 				});
@@ -48,7 +48,7 @@ const Post = ({ post }) => {
 	const { mutate: likePost, isPending: isLiking } = useMutation({
 		mutationFn: async () => {
 			try {
-				const res = await fetch(`http://localhost:8000/api/posts/like/${post._id}`, {
+				const res = await fetch(`https://x-nu-murex.vercel.app/api/posts/like/${post._id}`, {
 					method: "POST",
 					credentials:"include"
 				});
@@ -83,7 +83,7 @@ const Post = ({ post }) => {
 	const { mutate: commentPost, data: cmData, isPending: isCommenting } = useMutation({
     mutationFn: async () => {
         try {
-            const res = await fetch(`http://localhost:8000/api/posts/comment/${post._id}`, {
+            const res = await fetch(`https://x-nu-murex.vercel.app/api/posts/comment/${post._id}`, {
                 method: "POST",
                 credentials: "include",
                 headers: {

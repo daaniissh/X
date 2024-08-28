@@ -35,6 +35,6 @@ app.all("*", (req,res)=>{
 });
 
 app.listen(process.env.PORT , () => {
-  console.log("Server is running port http://localhost:8000");
+  console.log("Server is running port https://x-nu-murex.vercel.app");
   connectMongo();
 });

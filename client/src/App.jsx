@@ -18,7 +18,7 @@ function App() {
     queryKey: ["authUser"],
     queryFn: async () => {
       try {
-        const res = await fetch("http://localhost:8000/api/auth/me", {
+        const res = await fetch("https://x-nu-murex.vercel.app/api/auth/me", {
           method: "GET",
           credentials: "include", // This ensures cookies are sent with the request
         });

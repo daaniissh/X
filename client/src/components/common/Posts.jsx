@@ -9,15 +9,15 @@ const Posts = ({ feedType ,username,userId}) => {
 	const getPostEndpoint = () => {
 		switch (feedType) {
 			case "forYou":
-				return "http://localhost:8000/api/posts/all";
+				return "https://x-nu-murex.vercel.app/api/posts/all";
 			case "following":
-				return "http://localhost:8000/api/posts/following";
+				return "https://x-nu-murex.vercel.app/api/posts/following";
 			case "posts":
-				return `http://localhost:8000/api/posts/user/${username}`;
+				return `https://x-nu-murex.vercel.app/api/posts/user/${username}`;
 			case "likes":
-				return `http://localhost:8000/api/posts/likes/${userId}`;
+				return `https://x-nu-murex.vercel.app/api/posts/likes/${userId}`;
 			default:
-				return "http://localhost:8000/api/posts/all";
+				return "https://x-nu-murex.vercel.app/api/posts/all";
 		}
 	};
 	const POST_ENDPOINT = getPostEndpoint()

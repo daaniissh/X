@@ -14,7 +14,7 @@ const Sidebar = () => {
 	const { mutate, isPending, isError, error } = useMutation({
 		mutationFn: async () => {
 			try {
-				const res = await fetch("http://localhost:8000/api/auth/logout", {
+				const res = await fetch("https://x-nu-murex.vercel.app/api/auth/logout", {
 					method: "POST",
 					credentials: 'include',
 				});

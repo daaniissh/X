@@ -10,7 +10,7 @@ const RightPanel = () => {
 		queryKey: ["suggestedUsers"],
 		queryFn: async () => {
 			try {
-				const res = await fetch("http://localhost:8000/api/users/suggested", {
+				const res = await fetch("https://x-nu-murex.vercel.app/api/users/suggested", {
 					credentials: "include"
 				});
 				const data = await res.json();

@@ -7,7 +7,7 @@ const useUpdateUserProfile = () => {
 	const { mutateAsync: updateProfile, isPending: isUpdatingProfile } = useMutation({
 		mutationFn: async (formData) => {
 			try {
-				const res = await fetch(`http://localhost:8000/api/users/update`, {
+				const res = await fetch(`https://x-nu-murex.vercel.app/api/users/update`, {
 					method: "POST",
           credentials:"include",
 					headers: {
