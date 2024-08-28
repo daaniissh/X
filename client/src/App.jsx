@@ -19,6 +19,7 @@ function App() {
     queryFn: async () => {
       try {
         const res = await fetch("https://x-nu-murex.vercel.app/api/auth/me", {
+          method:"GET",
           credentials: "include", 
          
         });
