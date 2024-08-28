@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 const Sidebar = () => {
 	const queryClient = useQueryClient()
 	const { data:notifications } = useQuery({ queryKey: ["notifications"] });
-	const { mutate, isPending, isError, error } = useMutation({
+	const { mutate:logOut} = useMutation({
 		mutationFn: async () => {
 			try {
 				const res = await fetch("https://x-nu-murex.vercel.app/api/auth/logout", {
@@ -27,12 +27,13 @@ const Sidebar = () => {
 			}
 		},
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ["authUser"] })
+			// queryClient.invalidateQueries({ queryKey: ["authUser"] })
 		},
 		onError:()=>{
 			toast.error("Logout failed")
 		}
 	})
+
 const {data:authUser} = useQuery({queryKey:["authUser"]})
 
 	return (
@@ -90,7 +91,7 @@ const {data:authUser} = useQuery({queryKey:["authUser"]})
 							<BiLogOut className='w-5 h-5 cursor-pointer'
 								onClick={(e) => {
 									e.preventDefault()
-									mutate()
+									logOut()
 								}}
 							/>
 						</div>
