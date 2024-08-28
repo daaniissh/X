@@ -97,8 +97,8 @@ export const logout = async (req, res) => {
     res
       .clearCookie("jwt", {
         httpOnly: true,
-        sameSite: "strict",
-        secure: process.env.NODE_ENV === "production",
+        sameSite: "None",
+        secure: true,
         path: "/", // Ensure the path matches the one used when setting the cookie
       })
       .status(200)
