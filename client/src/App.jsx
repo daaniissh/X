@@ -21,6 +21,9 @@ function App() {
         const res = await fetch("https://x-nu-murex.vercel.app/api/auth/me", {
           method: "GET",
           credentials: "include", 
+          headers: {
+            'Accept': 'application/json',
+          }
         });
         const data = await res.json()
         if (data.error) return null

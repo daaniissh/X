@@ -10,7 +10,7 @@ export const generateTokenAndSetCookies = (userId, res) => {
     httpOnly: true, // prevent XSS attacks
     sameSite: 'strict', // prevent CSRF attacks
     secure: true, // only set secure flag in production
-    path: '/', // ensure the path is set correctly
+    // path: '/', // ensure the path is set correctly
   });
 
 };
