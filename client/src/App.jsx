@@ -20,27 +20,21 @@ function App() {
       try {
         const res = await fetch("https://x-nu-murex.vercel.app/api/auth/me", {
           method: "GET",
-          credentials: "include", // Include credentials for cookies
-          headers: {
-            'Accept': 'application/json',
-          }
+          credentials: "include", 
         });
-  
-        if (!res.ok) {
-          const errorData = await res.json();
-          throw new Error(errorData.error || "Something went wrong");
+        const data = await res.json()
+        if (data.error) return null
+        if (!res.ok || data.error) {
+          throw new Error(data.error || "Something went wrong")
         }
-  
-        const data = await res.json();
-        console.log(data, "===user data");
-        return data;
+        console.log(data, "===user data")
+        return data
       } catch (error) {
-        console.error("Error fetching user data:", error);
-        throw new Error(error.message || "Something went wrong");
+        throw new Error(error)
       }
     },
     retry: false,
-  });
+  })
   if (isLoading) {
     return (
       <div className='h-screen flex justify-center items-center' >
