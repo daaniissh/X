@@ -16,7 +16,7 @@ const app = express();  // Initialize the express application
 // Middleware Setup
 app.use(express.json({ limit: "5mb" }));  // Limit the size of JSON payloads
 app.use(cors({
-  origin: 'http://localhost:3000/', // Replace with your frontend domain
+  origin: 'https://x-client-home.vercel.app', // Replace with your frontend domain
   credentials: true, // Allow credentials (cookies) to be sent
 }));
 
